@@ -1,0 +1,9 @@
+.message {}
+.message__text {
+    width: "200px";
+    display: "inline-block"
+}
+
+.message_timestamp {
+    width: "100px";
+}
