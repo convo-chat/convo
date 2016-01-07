@@ -55,10 +55,16 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <ChannelList channels={channels} onClick={this.onClickRoom}/>
-                <MessageList messages={this.state.messages}/>
-                <MessageForm onSubmit={this.onSubmitMessage}/>
+            <div className="container-fluid">
+                <div className="row">
+                    <aside className="col-sm-3 col-md-2 sidebar">
+                        <ChannelList channels={channels} onClick={this.onClickRoom}/>
+                    </aside>
+                    <main className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                        <MessageList messages={this.state.messages}/>
+                        <MessageForm onSubmit={this.onSubmitMessage}/>
+                    </main>
+                </div>
             </div>
         );
     }
