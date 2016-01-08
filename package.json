@@ -3,6 +3,7 @@
   "dependencies": {
     "babel-polyfill": "^6.3.14",
     "babel-runtime": "^6.3.19",
+    "perfect-scrollbar": "^0.6.8",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "reflux": "^0.3.0"

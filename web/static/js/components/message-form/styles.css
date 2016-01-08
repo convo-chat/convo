@@ -1,0 +1,8 @@
+.message-form {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 200px;
+    background: #efefef;
+    padding: 20px;
+}

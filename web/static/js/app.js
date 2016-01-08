@@ -3,6 +3,7 @@
 // Let webpack handle the styles 
 // we use a very module structure for styles and components
 import "bootstrap/dist/css/bootstrap.css"
+import "perfect-scrollbar/dist/css/perfect-scrollbar.css"
 import "css/app.css"
 
 // Import dependencies
@@ -10,6 +11,7 @@ import "css/app.css"
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html/web/static/js/phoenix_html"
+import PS from "perfect-scrollbar"
 import React from "react"
 import ReactDOM from "react-dom"
 
@@ -23,3 +25,8 @@ import socket from "./socket"
 import App from "./components/app"
 
 ReactDOM.render(<App />, document.getElementById("app"));
+
+// initialize the scrollbar
+const scrollbar = document.querySelector(".ps-scrollbar");
+PS.initialize(scrollbar);
+

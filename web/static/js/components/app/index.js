@@ -26,6 +26,7 @@ console.log(user);
             activeRoom: "general", 
             messages: global.window.messages, 
             channel: socket.channel("rooms:general", {
+                user: "ConvoBot",
                 text: "@" + user + " joined!", 
                 date: (new Date()).toLocaleTimeString()
             }),
@@ -74,6 +75,8 @@ console.log(user);
             <div className="container-fluid">
                 <div className="row">
                     <aside className="col-sm-3 col-md-2 sidebar">
+
+                        <h3 className="sidebar__h">Activity</h3>
                         <ChannelList channels={channels} onClick={this.onClickRoom}/>
                     </aside>
                     <main className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

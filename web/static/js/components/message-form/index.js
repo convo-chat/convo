@@ -1,3 +1,7 @@
+// Import component styles
+import "./styles.css"
+
+// Import components deps
 import React, {Component} from "react"
 
 class MessageForm extends Component {
@@ -13,14 +17,15 @@ class MessageForm extends Component {
             e.target.value = "";
 
             this.props.onSubmit({text: text, date: date});
+            e.preventDefault();
         }
-
-        // e.preventDefault();
     }
 
     render() {
         return (
-            <input type="text" onKeyPress={this.onKeyPress} className="form-control"/>
+            <div className="message-form">
+                <textarea onKeyPress={this.onKeyPress} className="form-control"></textarea>
+            </div>
         );
     }
 
