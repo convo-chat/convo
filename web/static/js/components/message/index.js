@@ -9,7 +9,7 @@ class Message extends Component {
         return (
             <div className="message">
                 <p className="message__text">{this.props.message.text}</p>
-                <time className="message__timestamp">{this.props.message.date}</time>
+                <time className="message__ts">{this.props.message.date}</time>
             </div>
         );
     }

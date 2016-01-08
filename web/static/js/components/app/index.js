@@ -33,11 +33,11 @@ class App extends React.Component {
             .receive("error", () => { console.log("Unable to join the " + this.state.activeRoom + " chat room.")});
 
         channel.on("message_new", payload => {
-            this.setState({ messages: this.state.messages.concat(payload.text) });
+            this.setState({ messages: this.state.messages.concat(payload) });
         });
 
         channel.on("user_joined", payload => {
-            this.setState({ messages: this.state.messages.concat(payload.text) });
+            this.setState({ messages: this.state.messages.concat(payload) });
         });
 
     }
@@ -50,7 +50,7 @@ class App extends React.Component {
     }
 
     onSubmitMessage = (message) => {
-        this.state.channel.push("message_new", {text: message});
+        this.state.channel.push("message_new", message);
     }
 
     render() {
