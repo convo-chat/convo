@@ -13,6 +13,9 @@ defmodule Convo do
       supervisor(Convo.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(Convo.Worker, [arg1, arg2, arg3]),
+
+      # start the message store as well
+      worker(Convo.MessageStore, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

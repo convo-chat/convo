@@ -14,12 +14,27 @@ import MessageForm from "js/components/message-form"
 
 
 const channels = ["general", "mix", "ecto", "phoenix", "plug", "elixir", "erlang"];
+const users = ["foobar", "allyraza", "johndoe", "sherlock", "drwatson"];
 
 class App extends React.Component {
 
     constructor() {
         super();
-        this.state = {activeRoom: "general", messages: [], channel: socket.channel("rooms:general")};
+        const user = this.getUser();
+console.log(user);
+        this.state = {
+            activeRoom: "general", 
+            messages: global.window.messages, 
+            channel: socket.channel("rooms:general", {
+                text: "@" + user + " joined!", 
+                date: (new Date()).toLocaleTimeString()
+            }),
+            user: user
+        };
+    }
+
+    getUser() {
+        return users[Math.floor(Math.random() * users.length)];
     }
 
     componentDidMount() {
@@ -50,6 +65,7 @@ class App extends React.Component {
     }
 
     onSubmitMessage = (message) => {
+        message.user = this.state.user;
         this.state.channel.push("message_new", message);
     }
 

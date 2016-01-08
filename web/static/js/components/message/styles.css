@@ -1,9 +1,19 @@
 .message {}
+.message__user {
+    color: #000;
+    font-weight: bold;
+    font-style: italic;
+    float: left;
+}
 .message__text {
     width: 200px;
-    display: inline-block;
+    display: block;
+    clear: both;
 }
 
-.message_ts {
+.message__ts {
     width: 100px;
+    float: left;
+    color: #999;
+    margin-left: 5px;
 }

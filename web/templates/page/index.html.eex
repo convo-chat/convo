@@ -1,1 +1,2 @@
+<script>window.messages = <%= raw Poison.encode!(@messages) %> </script>
 <div id="app"></div>
