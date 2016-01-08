@@ -1,0 +1,12 @@
+.channel-link {}
+.channel-link__name {
+    padding: 10px;
+}
+
+.channel-link.active > a,
+.channel-link.active > a:hover,
+.channel-link.active > a:focus {
+    color: #fff;
+    background-color: #428bca;
+}
+

@@ -1,26 +1,19 @@
-import React, {Component} from "react"
+// Import component styles
+import "./styles.css"
 
-let ChannelLink = React.createClass({
-    handleClick: function() {
-        this.props.onClick(this.props.name);
-    },
-    render: function() {
-        return (
-            <div className="channel">
-                <a className="channel__room" onClick={this.handleClick}>{this.props.name}</a>
-            </div>
-        );
-    }
-});
+
+// Import component deps
+import React, {Component} from "react"
+import ChannelLink from "js/components/channel-link"
 
 class ChannelList extends Component {
     render() {
         return (
-            <div className="channel-list">
+            <ul className="nav channel-list">
                 {this.props.channels.map((channel, i) => {
                     return <ChannelLink key={i} name={channel} onClick={this.props.onClick}/>
                 })}
-            </div>
+            </ul>
         );
     }
 }
