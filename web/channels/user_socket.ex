@@ -3,6 +3,7 @@ defmodule Convo.UserSocket do
 
   ## Channels
   channel "rooms:*", Convo.RoomChannel
+  channel "private:*", Convo.PrivateChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -20,7 +21,7 @@ defmodule Convo.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(_params, socket) do
-    {:ok, socket}
+    {:ok, assign(socket, :user_id, 1)}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
@@ -33,5 +34,6 @@ defmodule Convo.UserSocket do
   #     Convo.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
+  def id(socket), do: "users:#{socket.assigns[:user_id]}"
   def id(_socket), do: nil
 end

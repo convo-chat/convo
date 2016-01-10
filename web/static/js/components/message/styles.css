@@ -6,7 +6,6 @@
     float: left;
 }
 .message__text {
-    width: 200px;
     display: block;
     clear: both;
 }

@@ -10,5 +10,16 @@ html, body {
 /* PS styles */
 .ps-scrollbar {
     position: relative;
+}
+
+#app,
+.container-fluid, 
+.container-fluid > .row, 
+.message-list,
+.main {
     height: 100%;
+}
+
+.message-list {
+    height: 85%;
 }
