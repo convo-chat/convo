@@ -3,6 +3,7 @@ defmodule Convo.Repo.Migrations.CreateUser do
 
   def change do
     create table(:users) do
+      add :team_id, :integer
       add :username, :string
       add :password, :string
       add :email, :string
@@ -12,7 +13,6 @@ defmodule Convo.Repo.Migrations.CreateUser do
       add :is_bot, :boolean, default: false
       add :is_archived, :boolean, default: false
       add :is_restricted, :boolean, default: false
-      add :failed_attempts, :integer
       add :last_login_at, :datetime
       add :deleted_at, :datetime
 
