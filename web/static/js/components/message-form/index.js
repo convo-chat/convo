@@ -1,22 +1,17 @@
 // Import component styles
-import "./styles.css"
+import './styles.css';
 
 // Import components deps
-import React, {Component} from "react"
+import React, { Component } from 'react';
 
 class MessageForm extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
     onKeyPress = (e) => {
         if (e.key === 'Enter') {
             let text = e.target.value.trim();
             let date = (new Date()).toLocaleTimeString();
+            let id = Date.now();
             e.target.value = "";
-
-            this.props.onSubmit({text: text, date: date});
+            this.props.onSubmit({ id: id, text: text, date: date });
             e.preventDefault();
         }
     }
@@ -24,12 +19,10 @@ class MessageForm extends Component {
     render() {
         return (
             <div className="message-form">
-                <textarea onKeyPress={this.onKeyPress} className="form-control"></textarea>
+                <textarea onKeyPress={ this.onKeyPress } className="form-control"/>
             </div>
         );
     }
-
 }
 
-
-export default MessageForm
+export default MessageForm;

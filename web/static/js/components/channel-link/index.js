@@ -1,23 +1,24 @@
 // Import component styles
-import "./styles.css"
+import './channel-link.css';
 
 // Import component deps
-import React, {Component} from "react"
+import React, { Component } from 'react';
 
 class ChannelLink extends Component {
-
-    onClick = (e) => {
-        this.props.onClick(this.props.name);
+    onClick = (ev) => {
+        ev.preventDefault();
+        const { onClick, name } = this.props;
+        onClick(name);
     }
 
     render() {
+        const { name } = this.props;
         return (
             <li className="channel-link">
-                <a className="channel-link__name" href="#" onClick={this.onClick}>{this.props.name}</a>
+                <a className="channel-link__name" href="#" onClick={this.onClick}>{ name }</a>
             </li>
         );
     }
-
 }
 
-export default ChannelLink
+export default ChannelLink;

@@ -1,10 +1,9 @@
-import React, {Component} from "react"
-import ReactDOM from "react-dom"
-
-import Message from "js/components/message"
+// Import component dependencies
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import Message from 'js/components/message';
 
 class MessageList extends Component {
-
     componentDidMount() {
         this.scrollBottom();
     }
@@ -27,14 +26,15 @@ class MessageList extends Component {
     }
 
     render() {
+        const { messages } = this.props;
         return (
             <div className="message-list ps-scrollbar">
-                {this.props.messages.map((message, i) => {
-                    return <Message key={i} message={message}/>
-                })}
+                { messages.map(message => {
+                    return <Message key={ message.id } message={ message }/>
+                }) }
             </div>
         );
     }
 }
 
-export default MessageList
+export default MessageList;

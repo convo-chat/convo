@@ -1,20 +1,20 @@
-import React, {Component} from "react"
+import React, { Component } from 'react';
 
 class UserLink extends Component {
-
-    onClick = (e) => {
-        this.props.onClick(this.props.user);
+    onClick = (ev) => {
+        ev.preventDefault();
+        const { user, onClick } = this.props;
+        onClick(user);
     }
 
     render() {
+        const { user } = this.props;
         return (
             <li className="user-link">
-                <a href="#" onClick={this.onClick}>
-                    {this.props.user.name}
-                </a>
+                <a href="#" onClick={this.onClick}>{ user.name }</a>
             </li>
         );
     }
 }
 
-export default UserLink
+export default UserLink;

@@ -1,8 +1,8 @@
 // Import component styles
-import "./styles.css";
+import './message.css';
 
 // Import component deps
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Message extends Component {
     render() {
