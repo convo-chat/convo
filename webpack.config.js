@@ -29,6 +29,7 @@ module.exports = {
             loader: 'file?name=fonts/[name].[ext]'
         }]
     },
+    devtool: '#inline-source-map',
     resolve: {
         modulesDirectories: ['node_modules', 'deps', 'web/static'],
     }, 
