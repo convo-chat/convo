@@ -29,4 +29,3 @@ ReactDOM.render(<App />, document.getElementById("app"));
 // initialize the scrollbar
 const scrollbar = document.querySelector(".ps-scrollbar");
 PS.initialize(scrollbar);
-
