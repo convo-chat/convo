@@ -10,7 +10,7 @@ defmodule Convo.User do
     field :is_admin, :boolean, default: false
     field :is_bot, :boolean, default: false
     field :is_archived, :boolean, default: false
-    field :is_restricted, :boolean, default: false
+    field :is_blocked, :boolean, default: false
     field :failed_attempts, :integer
     field :last_login_at, Ecto.DateTime
     field :deleted_at, Ecto.DateTime
@@ -18,7 +18,7 @@ defmodule Convo.User do
     timestamps
   end
 
-  @required_fields ~w(username password email auth_token prefs is_admin is_bot is_archived is_restricted failed_attempts last_login_at deleted_at)
+  @required_fields ~w(username password email auth_token prefs is_admin is_bot is_archived is_blocked failed_attempts last_login_at deleted_at)
   @optional_fields ~w()
 
   @doc """

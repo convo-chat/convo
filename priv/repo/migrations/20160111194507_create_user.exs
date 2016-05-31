@@ -12,7 +12,8 @@ defmodule Convo.Repo.Migrations.CreateUser do
       add :is_admin, :boolean, default: false
       add :is_bot, :boolean, default: false
       add :is_archived, :boolean, default: false
-      add :is_restricted, :boolean, default: false
+      add :is_blocked, :boolean, default: false
+      add :failed_attempts, :integer
       add :last_login_at, :datetime
       add :deleted_at, :datetime
 
