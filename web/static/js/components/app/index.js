@@ -13,6 +13,9 @@ import UserList from "js/components/user-list"
 import MessageList from "js/components/message-list"
 import MessageForm from "js/components/message-form"
 
+import UserActions from 'js/actions/UserActions';
+import userStore from 'js/stores/userStore';
+
 
 const channels = ["general", "mix", "ecto", "phoenix", "plug", "elixir", "erlang"];
 const users = [{id: 1, name: "foobar"}, {id: 2, name: "allyraza"}, {id: 3, name: "johndoe"}, {id: 4, name: "sherlock"}, {id: 5, name: "drwatson"}];
@@ -49,6 +52,7 @@ class App extends React.Component {
 
     componentDidMount() {
         this.configureChannel(this.state.channel);
+        userStore.addListener(this.onChange);
     }
 
     configureChannel(channel) {
@@ -73,6 +77,10 @@ class App extends React.Component {
 
     }
 
+    onChange = () => {
+        this.setState({});
+    }
+
     onClickRoom = (room) => {
         this.state.channel.leave();
         let channel = socket.channel("rooms:" + room, this.channelParams());
@@ -81,9 +89,12 @@ class App extends React.Component {
     }
 
     onClickUser = (user) => {
+
+        UserActions.loginUser('foo@bar.com', 'pwd123');
+
+        /*
         let channel = socket.channel("private:general");
         channel.join();
-
         channel.push("handshake", {user_id: user.id})
             .receive("ok", ({id}) => {
                 console.log("handshake success!");
@@ -91,6 +102,7 @@ class App extends React.Component {
                 this.setState({activeRoom: id, messages: [], channel: channel});
                 this.configureChannel(channel);
             });
+        */
     }
 
     onSubmitMessage = (message) => {

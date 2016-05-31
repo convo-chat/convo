@@ -1,9 +1,20 @@
+* {
+    box-sizing: border-box;
+}
+
 /* Hide for mobile, show later */
 .sidebar {
     display: none;
 }
 
+/* Main content */
+.main {
+    padding: 15px;
+    position: relative;
+}
+
 @media (min-width: 768px) {
+    .main {}
     .sidebar {
         position: fixed;
         top: 0;
@@ -16,17 +27,5 @@
         overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
         background-color: #fff;
         border-right: 1px solid #eee;
-  }
-}
-
-/* Main content */
-.main {
-    padding: 20px;
-}
-/*
-@media (min-width: 768px) {
-    .main {
-        padding: 20px;
     }
 }
-*/
