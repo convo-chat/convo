@@ -1,31 +1,25 @@
 // Import Styles
-//
-// Let webpack handle the styles 
-// we use a very module structure for styles and components
 import 'bootstrap/dist/css/bootstrap.css';
 import 'perfect-scrollbar/dist/css/perfect-scrollbar.css';
 import 'css/app.css';
 
-// Import dependencies
-//
-// If you no longer want to use a dependency, remember
-// to also remove its path from 'config.paths.watched'.
+// Import Dependencies
 import 'phoenix_html/web/static/js/phoenix_html';
 import PS from 'perfect-scrollbar';
+import socket from './socket';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths './socket' or full ones 'web/static/js/socket'.
-import socket from './socket';
-
-// Import our main App component and mount it
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import App from './components/app';
+import Login from './components/login';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<Router history={ browserHistory }>
+	<Route path="channel" component={ App } />
+	<Route path="/login" component={ Login } />
+	<Route path="*" component={ Login } />
+</Router>, document.getElementById('app'));
 
-// initialize the scrollbar
-const scrollbar = document.querySelector('.ps-scrollbar');
-PS.initialize(scrollbar);
+const scrollBar = document.querySelector('.ps-scrollbar');
+if (scrollBar) {
+	PS.initialize(scrollBar);
+}

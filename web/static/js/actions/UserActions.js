@@ -1,11 +1,11 @@
 import AppDispatcher from  'js/dispatcher';
 
 const UserActions = {
-    loginUser: (email, password) => {
+    login: (user) => {
         AppDispatcher.dispatch({
             type: 'USER_LOGIN',
-            email: email,
-            password: password
+            email: user.email,
+            password: user.password
         });
     }
 };
