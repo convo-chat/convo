@@ -6,7 +6,7 @@
 import {Socket} from "phoenix/web/static/js/phoenix"
 
 let socket = new Socket("/socket", {
-    params: {token: window.userToken}
+    params: { token: window.userToken }
 })
 
 

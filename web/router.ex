@@ -23,5 +23,6 @@ defmodule Convo.Router do
   scope "/api", Convo do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
+    post "/login", UserController, :login
   end
 end

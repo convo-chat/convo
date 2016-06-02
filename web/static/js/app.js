@@ -14,12 +14,12 @@ import App from './components/app';
 import Login from './components/login';
 
 ReactDOM.render(<Router history={ browserHistory }>
-	<Route path="channel" component={ App } />
-	<Route path="/login" component={ Login } />
-	<Route path="*" component={ Login } />
+  <Route path="channel" component={ App } />
+  <Route path="login" component={ Login } />
+  <Route path="*" component={ Login } />
 </Router>, document.getElementById('app'));
 
 const scrollBar = document.querySelector('.ps-scrollbar');
 if (scrollBar) {
-	PS.initialize(scrollBar);
+  PS.initialize(scrollBar);
 }

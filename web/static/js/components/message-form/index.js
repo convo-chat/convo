@@ -5,24 +5,24 @@ import './styles.css';
 import React, { Component } from 'react';
 
 class MessageForm extends Component {
-    onKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            let text = e.target.value.trim();
-            let date = (new Date()).toLocaleTimeString();
-            let id = Date.now();
-            e.target.value = "";
-            this.props.onSubmit({ id: id, text: text, date: date });
-            e.preventDefault();
-        }
+  onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      const text = e.target.value.trim();
+      const date = (new Date()).toLocaleTimeString();
+      const id = Date.now();
+      e.target.value = "";
+      this.props.onSubmit({ id: id, text: text, date: date });
+      e.preventDefault();
     }
+  }
 
-    render() {
-        return (
-            <div className="message-form">
-                <textarea onKeyPress={ this.onKeyPress } className="form-control"/>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="message-form">
+        <textarea onKeyPress={ this.onKeyPress } className="form-control"/>
+      </div>
+    );
+  }
 }
 
 export default MessageForm;

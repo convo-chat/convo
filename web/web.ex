@@ -31,6 +31,7 @@ defmodule Convo.Web do
       use Phoenix.Controller
 
       alias Convo.Repo
+      alias Convo.UserView
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 

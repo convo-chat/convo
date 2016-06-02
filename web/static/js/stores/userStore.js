@@ -3,20 +3,18 @@ import AppDispatcher from 'js/dispatcher';
 import UserActions from 'js/actions/UserActions';
 
 class UserStore extends ReduceStore {
-    getInitialState() {
-        return {};
-    }
+	getInitialState() {
+		return {};
+	}
 
-    reduce(state, action) {
-        switch (action.type) {
-            case 'USER_LOGIN':
-                console.log(action);
-                return {...state, loggedIn: true};
-            default:
-                return state;
-        }
-        console.log('aasasadf')
-    }
+	reduce(state, action) {
+		switch (action.type) {
+			case 'USER_LOGIN':
+				return {...state, loggedIn: true};
+			default:
+				return state;
+		}
+	}
 }
 
 const userStore = new UserStore(AppDispatcher);

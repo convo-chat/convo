@@ -20,8 +20,13 @@ defmodule Convo.UserView do
       is_admin: user.is_admin,
       is_bot: user.is_bot,
       is_archived: user.is_archived,
-      is_restricted: user.is_restricted,
+      is_blocked: user.is_blocked,
       last_login_at: user.last_login_at,
       deleted_at: user.deleted_at}
   end
+
+  def render("error.json", %{message: message}) do
+    %{message: message}
+  end
+
 end

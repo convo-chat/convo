@@ -54,4 +54,19 @@ defmodule Convo.UserController do
 
     send_resp(conn, :no_content, "")
   end
+
+  def login(conn, %{"email" => email, "password" => password}) do
+    case Repo.get_by(User, email: email) do
+      user ->
+        conn
+        |> render(UserView, :show, user: user)
+      _ ->
+        conn
+        |> render(UserView, :error, message: "Invalid username or password!")
+    end
+  end
+
+  def login(conn, _) do
+    conn |> render(UserView, :error, message: "Please enter your credentials!")
+  end
 end

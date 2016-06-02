@@ -4,37 +4,35 @@ import ReactDOM from 'react-dom';
 import Message from 'js/components/message';
 
 class MessageList extends Component {
-    componentDidMount() {
-        this.scrollBottom();
-    }
+  componentDidMount() {
+    this.scrollBottom();
+  }
 
-    componentWillUpdate() {
-        const node = ReactDOM.findDOMNode(this);
-        const isBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
-        this.shouldScrollBottom = isBottom || node.scrollTop === 0;
-    }
+  componentWillUpdate() {
+    const node = ReactDOM.findDOMNode(this);
+    const isBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+    this.shouldScrollBottom = isBottom || node.scrollTop === 0;
+  }
 
-    componentDidUpdate() {
-        this.scrollBottom();
-    }
+  componentDidUpdate() {
+    this.scrollBottom();
+  }
 
-    scrollBottom() {
-        if (this.shouldScrollBottom) {
-            const node = ReactDOM.findDOMNode(this);
-            node.scrollTop = node.scrollHeight;
-        }
+  scrollBottom() {
+    if (this.shouldScrollBottom) {
+      const node = ReactDOM.findDOMNode(this);
+      node.scrollTop = node.scrollHeight;
     }
+  }
 
-    render() {
-        const { messages } = this.props;
-        return (
-            <div className="message-list ps-scrollbar">
-                { messages.map(message => {
-                    return <Message key={ message.id } message={ message }/>
-                }) }
-            </div>
-        );
-    }
+  render() {
+    const { messages } = this.props;
+    return (
+      <div className="message-list ps-scrollbar">
+        { messages.map(message => <Message key={ message.id } message={ message }/>) }
+      </div>
+    );
+  }
 }
 
 export default MessageList;
