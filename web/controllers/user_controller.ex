@@ -55,14 +55,29 @@ defmodule Convo.UserController do
     send_resp(conn, :no_content, "")
   end
 
+  defp attempt(email, password) do
+    with user <- Repo.get_by(User, email: email),
+         true <- verify_password(user, password),
+    do:  {:ok, user}
+  end
+
+  defp verify_password(user, password) do
+    case user do
+      nil -> false
+      _   -> user.password == password
+    end
+  end
+
+  defp generate_token(user_id) do
+    Base.encode16(:crypto.md5("#{user_id}"), case: :lower)
+  end
+
   def login(conn, %{"email" => email, "password" => password}) do
-    case Repo.get_by(User, email: email) do
-      user ->
-        conn
-        |> render(UserView, :show, user: user)
+    case attempt(email, password) do
+      {:ok, user} ->
+        render(conn, user: user, token: generate_token(user.id))
       _ ->
-        conn
-        |> render(UserView, :error, message: "Invalid username or password!")
+        render(conn, :error, message: "Invalid username or password!")
     end
   end
 

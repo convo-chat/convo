@@ -3,19 +3,47 @@ import AppDispatcher from 'js/dispatcher';
 import UserActions from 'js/actions/UserActions';
 
 class UserStore extends ReduceStore {
-	getInitialState() {
-		return {};
-	}
+  getInitialState() {
+    return { 
+      users: [],
+      user: null,
+    };
+  }
 
-	reduce(state, action) {
-		switch (action.type) {
-			case 'USER_LOGIN':
-				return {...state, loggedIn: true};
-			default:
-				return state;
-		}
-	}
+  getUsers() {
+    return this.getState().users;
+  }
+
+  getLoggedIn() {
+    return !!this.getState().loggedIn;
+  }
+
+  getCurrentUser() {
+    console.log(this.getState().user);
+    return this.getState().user;
+  }
+
+  reduce(state, action) {
+    switch (action.type) {
+      case 'USER_LOGIN':
+        return state;
+      case 'USER_ADD_TOKEN':
+        return {
+          ...state, 
+          token: action.token, 
+          loggedIn: action.loggedIn
+        };
+      case 'USER_ADD': 
+        return {
+          ...state,
+          user: action.user,
+        };
+      default:
+        return state;
+    }
+  }
 }
 
 const userStore = new UserStore(AppDispatcher);
 export default userStore;
+

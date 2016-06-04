@@ -2,102 +2,67 @@
 import './styles.css';
 
 // Import Component deps
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import socket from 'js/socket';
+// Child components
 import ChannelList from 'js/components/channel-list';
 import UserList from 'js/components/user-list';
 import MessageList from 'js/components/message-list';
 import MessageForm from 'js/components/message-form';
+// Actions
 import UserActions from 'js/actions/UserActions';
+import ChannelActions from 'js/actions/ChannelActions';
+// Stores
 import userStore from 'js/stores/userStore';
+import channelStore from 'js/stores/channelStore';
+import messageStore from 'js/stores/messageStore';
 
-const channels = [
-  { id: 1, name: 'general' },
-  { id: 2, name: 'mix' },
-  { id: 3, name: 'ecto' },
-  { id: 4, name: 'phoenix' },
-  { id: 5, name: 'plug' },
-  { id: 6, name: 'elixir' },
-  { id: 7, name: 'erlang' }
-];
-const users = [
-  { id: 1, name: 'foobar' },
-  { id: 2, name: 'allyraza' },
-  { id: 3, name: 'johndoe' },
-  { id: 4, name: 'sherlock' },
-  { id: 5, name: 'drwatson' }
-];
 
-class App extends React.Component {
+class App extends Component {
   constructor() {
     super();
-    const user = this.getUser();
-    this.state = {
-      activeRoom: "general", 
-      messages: global.window.messages, 
-      channel: socket.channel("rooms:general", {
-        id: Date.now(),
-        user: "ConvoBot",
-        text: "@" + user + " joined!", 
-        date: (new Date()).toLocaleTimeString()
-      }),
-      user: user
-    };
-  }
-
-  channelParams() {
-    return {
-      id: Date.now(),
-      user: "ConvoBot",
-      text: "@" + this.state.user + " joined!", 
-      date: (new Date()).toLocaleTimeString()
-    };
-  } 
-
-  getUser() {
-    const id = Math.floor(Math.random() * users.length);
-    return users[id].name;
+    this.state = this.getStateFromStore();
   }
 
   componentDidMount() {
-    this.configureChannel(this.state.channel);
+    const { currentUser, currentChannel } = this.state;
+    if (!currentChannel && currentUser) {
+      ChannelActions.join('room:general', {
+        id: Date.now(),
+        user: "ConvoBot",
+        text: `@${currentUser.name} joined!`, 
+        date: (new Date()).toLocaleTimeString()
+      });
+      // registerCallbacks(this.state.channel);
+    }
     userStore.addListener(this.onChange);
-  }
-
-  configureChannel(channel) {
-    channel.join()
-      .receive("ok", () => { console.log("Successfully joined the " + this.state.activeRoom + " chat room.")})
-      .receive("error", () => { console.log("Unable to join the " + this.state.activeRoom + " chat room.")});
-
-    channel.on("handshake", ({id, user_id}) => {
-      const channel = socket.channel("private:" + id);
-      this.setState({activeRoom: id, messages: [], channel: channel});
-      this.configureChannel(channel);
-    });
-
-    channel.on("message_new", payload => {
-      this.setState({ messages: this.state.messages.concat(payload) });
-    });
-
-    channel.on("user_joined", payload => {
-      this.setState({ messages: this.state.messages.concat(payload) });
-    });
+    channelStore.addListener(this.onChange);
   }
 
   onChange = () => {
-    this.setState({});
+    console.log('rendering component again.');
+    this.setState(this.getStateFromStore());
   }
 
-  onClickRoom = (room) => {
-    this.state.channel.leave();
-    let channel = socket.channel("rooms:" + room, this.channelParams());
-    this.setState({ activeRoom: room, messages: [], channel: channel });
-    this.configureChannel(channel);
+  onClickChannel = (channelName) => {
+    const { currentUser } = this.state;
+    ChannelActions.join(`rooms:${channelName}`, {
+      id: Date.now(),
+      user: 'ConvoBot',
+      text: `@${currentUser.username} joined!`, 
+      date: (new Date()).toLocaleTimeString()
+    });
+
+    // this.state.channel.leave();
+    // const channel = socket.channel('rooms:' + channelName, this.channelParams());
+    // this.setState({ activeRoom: room, messages: [], channel: channel });
+    // registerCallbacks(channel);
   }
 
   onClickUser = (user) => {
-    UserActions.login('foo@bar.com', 'pwd123');
+    // UserActions.directMessage();
+
     /*
     const channel = socket.channel("private:general");
     channel.join();
@@ -112,24 +77,40 @@ class App extends React.Component {
   }
 
   onSubmitMessage = (message) => {
-    const { user, channel } = this.state;
-    message.user = user;
-    channel.push("message_new", message);
+    const { currentUser } = this.state;
+    ChannelActions.messageNew(currentUser, message);
+  }
+
+  getStateFromStore() {
+    return {
+      currentChannel: channelStore.getCurrentChannel(), 
+      channels: channelStore.getChannels(), 
+      currentUser: userStore.getCurrentUser(),
+      users: userStore.getUsers(),
+      loggedIn: userStore.getLoggedIn(),
+      messages: messageStore.getMessages(),
+    };
   }
 
   render() {
-    const { messages } = this.state;
+    const { users, messages, channels } = this.state;
     return (
       <div className="container-fluid">
         <div className="row">
           <aside className="col-sm-3 col-md-2 sidebar">
             <h3 className="sidebar__h">Activity</h3>
-            <ChannelList channels={ channels } onClick={this.onClickRoom} />
-            <UserList users={ users } onClick={ this.onClickUser } />
+            <ChannelList
+              channels={ channels }
+              onClick={ this.onClickChannel } />
+            <UserList
+              users={ users }
+              onClick={ this.onClickUser } />
           </aside>
           <main className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <MessageList messages={ messages } />
-            <MessageForm onSubmit={ this.onSubmitMessage } />
+            <MessageList
+              messages={ messages } />
+            <MessageForm
+              onSubmit={ this.onSubmitMessage } />
           </main>
         </div>
       </div>
@@ -138,3 +119,4 @@ class App extends React.Component {
 }
 
 export default App;
+

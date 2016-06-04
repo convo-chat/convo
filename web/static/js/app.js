@@ -10,16 +10,27 @@ import socket from './socket';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import Auth from './services/auth';
 import App from './components/app';
 import Login from './components/login';
+import Channel from './components/channel';
 
-ReactDOM.render(<Router history={ browserHistory }>
-  <Route path="channel" component={ App } />
-  <Route path="login" component={ Login } />
-  <Route path="*" component={ Login } />
-</Router>, document.getElementById('app'));
+const Routes = (
+  <Router history={ browserHistory }>
+    <Route path="/" component={ App } onEnter={ Auth.protect }>
+      <Route path="channels">
+        <Route path=":id" component={ Channel } />
+      </Route>
+    </Route>
+    <Route path="login" component={ Login } />
+    <Route path="*" component={ Login } />
+  </Router>
+);
+
+ReactDOM.render(Routes, document.getElementById('app'));
 
 const scrollBar = document.querySelector('.ps-scrollbar');
 if (scrollBar) {
   PS.initialize(scrollBar);
 }
+

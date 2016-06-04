@@ -9,6 +9,10 @@ defmodule Convo.UserView do
     %{data: render_one(user, Convo.UserView, "user.json")}
   end
 
+  def render("login.json", %{user: user, token: token}) do
+    %{token: token, user: render_one(user, Convo.UserView, "user.json")}
+  end
+
   def render("user.json", %{user: user}) do
     %{id: user.id,
       team_id: user.team_id,
