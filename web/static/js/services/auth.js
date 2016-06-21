@@ -1,22 +1,32 @@
-
 const Auth = {
-
-  login: (token, callback) => {
-    localStorage.token = token;
+  login: (user, callback) => {
+    localStorage.token = user.token;
+    localStorage.user = user;
     if (callback) {
       callback();
     }
   },
 
-  logout: (callback) => {
+  logout: (nextState, replace) => {
     delete localStorage.token;
-    if (callback) {
-      callback();
-    }
+    delete localStorage.user;
+    replace('/login');
   },
 
   loggedIn: () => {
     return !!localStorage.token && localStorage.token !== 'undefined';
+  },
+
+  addUser: (user) => {
+    return localStorage.user = user;
+  },
+
+  getUser: () => {
+    return localStorage.user;
+  },
+
+  getToken: () => {
+    return localStorage.token;
   },
 
   protect: (nextState, replace) => {
@@ -24,7 +34,6 @@ const Auth = {
       replace('/login');
     }
   }
-
 };
 
 export default Auth;

@@ -23,6 +23,7 @@ const Routes = (
       </Route>
     </Route>
     <Route path="login" component={ Login } />
+    <Route path="logout" onEnter={ Auth.logout } />
     <Route path="*" component={ Login } />
   </Router>
 );

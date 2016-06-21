@@ -41,7 +41,6 @@ class App extends Component {
   }
 
   onChange = () => {
-    console.log('rendering component again.');
     this.setState(this.getStateFromStore());
   }
 
@@ -55,7 +54,6 @@ class App extends Component {
     });
 
     // this.state.channel.leave();
-    // const channel = socket.channel('rooms:' + channelName, this.channelParams());
     // this.setState({ activeRoom: room, messages: [], channel: channel });
     // registerCallbacks(channel);
   }
