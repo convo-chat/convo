@@ -31,7 +31,7 @@ class ChannelStore extends ReduceStore {
     const { type, payload } = action;
     switch (type) {
       case 'CHANNEL_JOIN':
-        return {...state, current: payload.name };
+        return {...state, current: payload.topic};
       default:
         return state;
     }

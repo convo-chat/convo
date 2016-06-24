@@ -1,25 +1,63 @@
-html, body {
-    height: 100%;
-    overflow: hidden;
+* {
+  box-sizing: border-box;
 }
 
-/* flash messages */
+html, body, #app {
+  height: 100%;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+input, textarea, select {
+  width: 100%;
+  border: 1px solid rgba(0,0,0, .25);
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+}
+
 .alert:empty { display: none; }
 
-
-/* PS styles */
 .ps-scrollbar {
-    position: relative;
+  position: relative;
 }
 
-#app,
-.container-fluid, 
-.container-fluid > .row, 
-.message-list,
-.main {
-    height: 100%;
+
+.grid {
+  display: flex;
+  height: 100%;
 }
 
-.message-list {
-    padding-bottom: 100px;
+.sidebar {
+  flex: 1;
+  padding: 15px;
+  background-color: #fff;
+  border-right: 1px solid #eee;
+}
+
+.content {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
 }

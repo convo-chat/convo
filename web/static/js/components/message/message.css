@@ -1,18 +1,18 @@
 .message {}
 .message__user {
-    color: #000;
-    font-weight: bold;
-    font-style: italic;
-    float: left;
+  color: #000;
+  font-weight: bold;
+  font-style: italic;
+  float: left;
 }
 .message__text {
-    display: block;
-    clear: both;
+  display: block;
+  clear: both;
 }
 
 .message__ts {
-    width: 100px;
-    float: left;
-    color: #999;
-    margin-left: 5px;
+  width: 100px;
+  float: left;
+  color: #999;
+  margin-left: 5px;
 }

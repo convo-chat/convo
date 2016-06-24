@@ -4,23 +4,19 @@ import channelStore from 'js/stores/channelStore';
 
 class MessageStore extends ReduceStore {
   getInitialState() {
-    return {
-      messages: {'channel:general': []},
-    };
+    return {};
   }
 
-  getMessages() {
-    const channel = channelStore.currentChannel();
-    return this.getState().messages[channel];
+  getMessages(topic) {
+    return this.getState()[topic] || [];
   }
 
   reduce(state, action) {
     const { type, payload } = action;
     switch (type) {
       case 'MESSAGE_NEW':
-        return {
-          messages: {[payload.channel]: [...state.messages, action.message]},
-        };
+        const messages = state[payload.topic] || [];
+        return {...state, [payload.topic]: [...messages, payload.message]};
       default:
         return state;
     }

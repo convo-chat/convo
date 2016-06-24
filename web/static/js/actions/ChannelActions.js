@@ -4,18 +4,17 @@ import MessageActions from 'js/actions/MessageActions';
 import channelStore from 'js/stores/channelStore';
 
 const ChannelActions = {
-  join: (name = 'channel:general', callback) => {
-    const channel = socket.channel(name);
+  join: (topic = 'general') => {
+    const channel = socket.channel(`channel:${topic}`);
+    channel.off("message_new");
     channel.on("message_new", payload => {
-      console.log(payload);
+      MessageActions.new(topic, payload);
     });
-
-    if (callback) callback(channel);
 
     AppDispatcher.dispatch({
       type: 'CHANNEL_JOIN',
       payload: {
-        name,
+        topic,
       },
     });
   },
@@ -30,11 +29,11 @@ const ChannelActions = {
     console.log('user left');
   },
 
-  messageNew: (message) => {
-    const channel = channelStore.currentChannel();
-    socket.channel(channel).push('message_new', message);
-    // MessageActions.addMessage({ message, channel });
+  messageNew: (topic, message) => {
+    socket.channel(`channel:${topic}`)
+      .push('message_new', message);
   },
 };
 
 export default ChannelActions;
+

@@ -9,7 +9,7 @@ class Message extends Component {
     const { user, date, text } = this.props.message;
     return (
       <div className="message">
-        <span className="message__user">{ user }</span>
+        <span className="message__user">{ user.username }</span>
         <time className="message__ts">{ date }</time>
         <p className="message__text">{ text }</p>
       </div>

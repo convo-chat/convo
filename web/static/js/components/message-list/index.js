@@ -1,3 +1,6 @@
+// Import styles
+import './message-list.css';
+
 // Import component dependencies
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
