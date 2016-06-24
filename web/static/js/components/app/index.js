@@ -16,8 +16,6 @@ import ChannelActions from 'js/actions/ChannelActions';
 // Stores
 import userStore from 'js/stores/userStore';
 import channelStore from 'js/stores/channelStore';
-import messageStore from 'js/stores/messageStore';
-
 
 class App extends Component {
   constructor() {
@@ -26,16 +24,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { currentUser, currentChannel } = this.state;
-    if (!currentChannel && currentUser) {
-      ChannelActions.join('room:general', {
-        id: Date.now(),
-        user: "ConvoBot",
-        text: `@${currentUser.name} joined!`, 
-        date: (new Date()).toLocaleTimeString()
-      });
-      // registerCallbacks(this.state.channel);
-    }
     userStore.addListener(this.onChange);
     channelStore.addListener(this.onChange);
   }
@@ -46,52 +34,37 @@ class App extends Component {
 
   onClickChannel = (channelName) => {
     const { currentUser } = this.state;
-    ChannelActions.join(`rooms:${channelName}`, {
-      id: Date.now(),
-      user: 'ConvoBot',
-      text: `@${currentUser.username} joined!`, 
-      date: (new Date()).toLocaleTimeString()
+    ChannelActions.join(`channel:${channelName}`, channel => {
+      channel.push({
+        id: Date.now(),
+        user: 'ConvoBot',
+        text: `@${currentUser.username} joined!`, 
+        date: (new Date()).toLocaleTimeString()
+      });
     });
-
-    // this.state.channel.leave();
-    // this.setState({ activeRoom: room, messages: [], channel: channel });
-    // registerCallbacks(channel);
   }
 
   onClickUser = (user) => {
-    // UserActions.directMessage();
-
-    /*
-    const channel = socket.channel("private:general");
-    channel.join();
-    channel.push("handshake", {user_id: user.id})
-      .receive("ok", ({id}) => {
-        console.log("handshake success!");
-        let channel = socket.channel("private:" + id);
-        this.setState({activeRoom: id, messages: [], channel: channel});
-        this.configureChannel(channel);
-      });
-    */
   }
 
   onSubmitMessage = (message) => {
     const { currentUser } = this.state;
-    ChannelActions.messageNew(currentUser, message);
+    message.user = currentUser;
+    ChannelActions.messageNew(message);
   }
 
   getStateFromStore() {
     return {
-      currentChannel: channelStore.getCurrentChannel(), 
+      currentChannel: channelStore.currentChannel(), 
       channels: channelStore.getChannels(), 
       currentUser: userStore.getCurrentUser(),
       users: userStore.getUsers(),
       loggedIn: userStore.getLoggedIn(),
-      messages: messageStore.getMessages(),
     };
   }
 
   render() {
-    const { users, messages, channels } = this.state;
+    const { users, channels } = this.state;
     return (
       <div className="container-fluid">
         <div className="row">
@@ -105,8 +78,7 @@ class App extends Component {
               onClick={ this.onClickUser } />
           </aside>
           <main className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <MessageList
-              messages={ messages } />
+            { this.props.children }
             <MessageForm
               onSubmit={ this.onSubmitMessage } />
           </main>

@@ -1,7 +1,6 @@
 const Auth = {
-  login: (user, callback) => {
-    localStorage.token = user.token;
-    localStorage.user = user;
+  login: (token, callback) => {
+    localStorage.token = token;
     if (callback) {
       callback();
     }
@@ -18,11 +17,11 @@ const Auth = {
   },
 
   addUser: (user) => {
-    return localStorage.user = user;
+    return localStorage.user = JSON.stringify(user);
   },
 
   getUser: () => {
-    return localStorage.user;
+    return JSON.parse(localStorage.user);
   },
 
   getToken: () => {

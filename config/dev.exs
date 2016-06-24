@@ -12,7 +12,8 @@ config :convo, Convo.Endpoint,
   code_reloader: true,
   cache_static_lookup: false,
   check_origin: false,
-  watchers: [node: ["node_modules/webpack/bin/webpack.js", "--watch", "--color"]]
+  watchers: [node: ["node_modules/webpack/bin/webpack.js", "--watch", "--color",
+             cd: "./"]]
 
 # Watch static and templates for browser reloading.
 config :convo, Convo.Endpoint,

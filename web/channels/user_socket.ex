@@ -2,7 +2,7 @@ defmodule Convo.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "rooms:*", Convo.RoomChannel
+  channel "channel:*", Convo.RoomChannel
   channel "private:*", Convo.PrivateChannel
 
   ## Transports
@@ -34,6 +34,6 @@ defmodule Convo.UserSocket do
   #     Convo.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  def id(socket), do: "users:#{socket.assigns[:user_id]}"
+  def id(socket), do: "user:#{socket.assigns[:user_id]}"
   def id(_socket), do: nil
 end

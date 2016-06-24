@@ -1,6 +1,7 @@
 import { ReduceStore } from 'flux/utils';
 import AppDispatcher from 'js/dispatcher';
 import UserActions from 'js/actions/UserActions';
+import Auth from 'js/services/auth';
 
 class UserStore extends ReduceStore {
   getInitialState() {
@@ -19,8 +20,7 @@ class UserStore extends ReduceStore {
   }
 
   getCurrentUser() {
-    console.log(this.getState().user);
-    return this.getState().user;
+    return Auth.getUser();
   }
 
   reduce(state, action) {

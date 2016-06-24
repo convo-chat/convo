@@ -23,14 +23,15 @@ class ChannelStore extends ReduceStore {
     return this.getState().channels;
   }
 
-  getCurrentChannel() {
+  currentChannel() {
     return this.getState().current;
   }
 
   reduce(state, action) {
-    switch (action.type) {
+    const { type, payload } = action;
+    switch (type) {
       case 'CHANNEL_JOIN':
-        return state;
+        return {...state, current: payload.name };
       default:
         return state;
     }

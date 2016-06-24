@@ -14,11 +14,14 @@ import Auth from './services/auth';
 import App from './components/app';
 import Login from './components/login';
 import Channel from './components/channel';
+import ChannelActions from './actions/ChannelActions';
+
+ChannelActions.join();
 
 const Routes = (
   <Router history={ browserHistory }>
     <Route path="/" component={ App } onEnter={ Auth.protect }>
-      <Route path="channels">
+      <Route path="channel">
         <Route path=":id" component={ Channel } />
       </Route>
     </Route>

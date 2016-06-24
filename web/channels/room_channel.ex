@@ -1,17 +1,17 @@
 defmodule Convo.RoomChannel do
   use Phoenix.Channel
 
-  def join("rooms:general", payload, socket) do
+  def join("channel:general", payload, socket) do
     send(self, {:after_join, payload})
     {:ok, socket}
   end
 
-  def join("rooms:" <> _room, payload, socket) do
+  def join("channel:" <> _room, payload, socket) do
     send(self, {:after_join, payload})
     {:ok, socket}
   end
 
-  def leave("rooms:"<> _room, _payload, socket) do
+  def leave("channel:"<> _room, _payload, socket) do
     {:ok, socket}
   end
 
@@ -28,6 +28,8 @@ defmodule Convo.RoomChannel do
   end
 
   def handle_in("message_new", payload, socket) do
+    # @todo remove inspect
+    IO.inspect(payload)
     broadcast! socket, "message_new", payload
     Convo.MessageStore.put(socket.topic, payload)
 
