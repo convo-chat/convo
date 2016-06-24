@@ -10,8 +10,8 @@ class UserLink extends Component {
   render() {
     const { user } = this.props;
     return (
-      <li className="user-link">
-        <a href="#" onClick={this.onClick}>{ user.name }</a>
+      <li className="list__item">
+        <a href="#" onClick={ this.onClick }>{ user.name }</a>
       </li>
     );
   }

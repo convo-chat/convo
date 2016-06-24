@@ -31,6 +31,7 @@ class App extends Component {
   }
 
   componentWillMount() {
+    ChannelActions.fetchChannels();
     ChannelActions.join();
   }
 
@@ -56,12 +57,16 @@ class App extends Component {
   }
 
   render() {
-    const { users, channels } = this.state;
+    const { users, channels, currentChannel, currentUser } = this.state;
+
     return (
       <div className="grid">
           <aside className="sidebar">
+            <header className="user">
+              Hello, { currentUser.username }!
+            </header>
             <h3 className="sidebar__h">Activity</h3>
-            <ChannelList channels={ channels } />
+            <ChannelList channels={ channels } currentChannel={ currentChannel } />
             <UserList users={ users } />
           </aside>
           { this.props.children }

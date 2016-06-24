@@ -12,6 +12,7 @@
 
 alias Convo.Repo
 alias Convo.User
+alias Convo.Channel
 
 %User {
   team_id: 1,
@@ -24,3 +25,21 @@ alias Convo.User
   last_login_at: Ecto.DateTime.utc
 } |> Repo.insert!
 
+%User {
+  team_id: 1,
+  username: "sherlock",
+  password: "sherlocked",
+  email: "sherlock@example.com",
+  auth_token: "123",
+  is_admin: true,
+  is_bot: false,
+  last_login_at: Ecto.DateTime.utc
+} |> Repo.insert!
+
+%Channel {
+  name: "general"
+} |> Repo.insert!
+
+%Channel {
+  name: "random"
+} |> Repo.insert!

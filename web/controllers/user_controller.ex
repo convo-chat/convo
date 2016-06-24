@@ -69,7 +69,8 @@ defmodule Convo.UserController do
   end
 
   defp generate_token(user_id) do
-    Base.encode16(:crypto.md5("#{user_id}"), case: :lower)
+    :crypto.hash(:md5, "#{user_id}")
+    |> Base.encode16(case: :lower)
   end
 
   def login(conn, %{"email" => email, "password" => password}) do

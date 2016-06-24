@@ -1,3 +1,30 @@
-.channel-list {
-    margin-bottom: 20px;
+.list {
+	margin-bottom: 20px;
 }
+
+.list__heading {
+  margin: 0;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.list__items {}
+.list__item {
+	margin-bottom: 5px;
+}
+
+.list__link {
+	padding: 2px 5px;
+  vertical-align: middle;
+  color: #637280;
+  font-size: 14px;
+}
+
+.list__item--active > a,
+.list__item--active > a:hover,
+.list__item--active > a:focus {
+	color: #fff;
+  background-color: #428bca;
+  border-radius: 2px;
+}
+

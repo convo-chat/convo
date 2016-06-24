@@ -2,6 +2,7 @@ import AppDispatcher from  'js/dispatcher';
 import socket from 'js/socket';
 import MessageActions from 'js/actions/MessageActions';
 import channelStore from 'js/stores/channelStore';
+import config from 'js/config';
 
 const ChannelActions = {
   join: (topic = 'general') => {
@@ -32,6 +33,28 @@ const ChannelActions = {
   messageNew: (topic, message) => {
     socket.channel(`channel:${topic}`)
       .push('message_new', message);
+  },
+
+  addChannels: (channels) => {
+    AppDispatcher.dispatch({
+      type: 'CHANNELS_ADD',
+      payload: {
+        channels,
+      },
+    });
+  },
+
+  fetchChannels: () => {
+    fetch('/api/channels', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(resp => resp.json())
+    .then(json => ChannelActions.addChannels(json.data))
+    .catch(err => console.log(err));
   },
 };
 

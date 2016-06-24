@@ -7,13 +7,17 @@ import ChannelLink from 'js/components/channel-link';
 
 class ChannelList extends Component {
   render() {
-    const { channels } = this.props;
+    const { channels, currentChannel } = this.props;
     return (
-      <div className="channel-list">
-        <h4 className="channel-list__h">Channels</h4>
-        <ul className="nav channel-list__items">
+      <div className="list">
+        <h5 className="list__heading">Channels</h5>
+        <ul className="list__items">
           { channels.map(channel => {
-            return <ChannelLink key={ channel.id } name={ channel.name } />
+            return <ChannelLink
+              key={ channel.id }
+              active={ currentChannel === channel.name }
+              name={ channel.name }
+            />
           }) }
         </ul>
       </div>

@@ -49,9 +49,12 @@ class Channel extends Component {
   }
 
   render() {
-    const { messages } = this.state;
+    const { messages, currentChannel } = this.state;
     return (
       <main className="content">
+        <header className="content__header">
+          <h3>#{ currentChannel }</h3>
+        </header>
         <MessageList messages={ messages } />
         <MessageForm onSubmit={ this.onSubmit } />
       </main>

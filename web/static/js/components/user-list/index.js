@@ -6,9 +6,9 @@ class UserList extends Component {
   render() {
     const { users, onClick } = this.props;
     return (
-      <div className="user-list">
-        <h4 className="user-list__h">Direct Messages</h4>
-        <ul className="nav">
+      <div className="list">
+        <h5 className="list__heading">Direct Messages</h5>
+        <ul className="list__items">
           { users.map(user => {
             return <UserLink key={ user.id } user={ user } onClick={ onClick } />
           })}

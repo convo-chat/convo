@@ -1,5 +1,5 @@
 // Import component styles
-import './styles.css';
+import './message-form.css';
 
 // Import components deps
 import React, { Component } from 'react';
@@ -19,7 +19,10 @@ class MessageForm extends Component {
   render() {
     return (
       <div className="message-form">
-        <textarea onKeyPress={ this.onKeyPress } className="form-control"/>
+        <textarea
+          onKeyPress={ this.onKeyPress }
+          className="message-form__input"
+        />
       </div>
     );
   }

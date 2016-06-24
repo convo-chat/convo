@@ -7,6 +7,7 @@ email
 prefs
 user_count
 channel_count
+created_by
 deleted_at
 timestamps
 
