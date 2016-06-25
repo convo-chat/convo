@@ -48,7 +48,7 @@ timestamps
     timezone
 
 
-## user_channel
+## User Channel
   user_id
   channel_id
   last_pinged_at

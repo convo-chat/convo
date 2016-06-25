@@ -1,5 +1,8 @@
 # Convo
 
+![Convo](https://raw.githubusercontent.com/convo-chat/convo/master/web/static/assets/images/screenshot.png)
+
+
 To start your Phoenix app:
 
   1. Install dependencies with `mix deps.get`

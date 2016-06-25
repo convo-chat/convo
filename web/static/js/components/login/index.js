@@ -2,27 +2,25 @@ import React, { Component } from 'react';
 import UserActions from 'js/actions/UserActions';
 
 class Login extends Component {
-  handleSubmit = (ev) => {
+  onSubmit = (ev) => {
     ev.preventDefault();
     const { email, password } = this.refs;
-    UserActions.login({ email: email.value, password: password.value })
-    email.value = null;
-    password.value = null;
+    UserActions.login(email.value, password.value);
   }
 
   render() {
     return (
       <div style={ Style.userLogin } className="user-login center-block well">
-        <form className="login-form" onSubmit={ this.handleSubmit }>
-          <h3 className="login-form__legend">Login</h3>
-          <div className="form-group">
+        <form className="form" onSubmit={ this.onSubmit }>
+          <h3 className="form__legend">Login</h3>
+          <div className="form__group">
             <input ref="email" type="email" className="form-control"/>
           </div>
-          <div className="form-group">
+          <div className="form__group">
             <input ref="password" type="password" className="form-control"/>
           </div>
-          <div className="form-group buttons">
-            <button type="submit" className="btn btn-primary">Login</button>
+          <div className="form__group form__actions">
+            <button type="submit" className="button button--primary">Login</button>
           </div>
         </form>
       </div>

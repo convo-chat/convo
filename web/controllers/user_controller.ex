@@ -76,7 +76,8 @@ defmodule Convo.UserController do
   def login(conn, %{"email" => email, "password" => password}) do
     case attempt(email, password) do
       {:ok, user} ->
-        render(conn, user: user, token: generate_token(user.id))
+        token = Phoenix.Token.sign(conn, "user", user.id)
+        render(conn, user: user, token: token)
       _ ->
         render(conn, :error, message: "Invalid username or password!")
     end

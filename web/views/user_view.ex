@@ -17,7 +17,6 @@ defmodule Convo.UserView do
     %{id: user.id,
       team_id: user.team_id,
       username: user.username,
-      password: user.password,
       email: user.email,
       auth_token: user.auth_token,
       prefs: user.prefs,
@@ -25,8 +24,7 @@ defmodule Convo.UserView do
       is_bot: user.is_bot,
       is_archived: user.is_archived,
       is_blocked: user.is_blocked,
-      last_login_at: user.last_login_at,
-      deleted_at: user.deleted_at}
+      last_login_at: user.last_login_at}
   end
 
   def render("error.json", %{message: message}) do

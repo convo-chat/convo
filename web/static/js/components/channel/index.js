@@ -6,10 +6,12 @@ import MessageList from 'js/components/message-list';
 import MessageForm from 'js/components/message-form';
 // Actions
 import ChannelActions from 'js/actions/ChannelActions';
+import MessageActions from 'js/actions/MessageActions';
 // Stores
 import messageStore from 'js/stores/messageStore';
 import channelStore from 'js/stores/channelStore';
 import userStore from 'js/stores/userStore';
+
 
 class Channel extends Component {
   constructor() {
@@ -26,6 +28,7 @@ class Channel extends Component {
   componentWillReceiveProps(nextProps) {
     const { id } = nextProps.params;
     ChannelActions.join(id);
+    MessageActions.fetchMessages(id);
   }
 
   onChange = () => {

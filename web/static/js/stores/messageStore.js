@@ -17,6 +17,9 @@ class MessageStore extends ReduceStore {
       case 'MESSAGE_NEW':
         const messages = state[payload.topic] || [];
         return {...state, [payload.topic]: [...messages, payload.message]};
+      case 'MESSAGES_ADD':
+      console.log(...payload.messages);
+        return {...state, ...payload.messages};
       default:
         return state;
     }

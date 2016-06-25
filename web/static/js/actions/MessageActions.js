@@ -11,7 +11,26 @@ const MessageActions = {
       }
     });
   },
+  addMessages: (messages) => {
+  	AppDispatcher.dispatch({
+      type: 'MESSAGES_ADD',
+      payload: {
+        messages,
+      }
+    });
+  },
+  fetchMessages: (topic) => {
+  	fetch(`/api/messages?topic=${topic}`, {
+  		method: 'GET',
+  		headers: {
+      	'Accept': 'application/json',
+      	'Content-Type': 'application/json'
+    	}
+  	})
+  	.then(resp => resp.json())
+  	.then(json => MessageActions.addMessages(json.data))
+  	.catch(err => console.log(err));
+  },
 };
 
 export default MessageActions;
-

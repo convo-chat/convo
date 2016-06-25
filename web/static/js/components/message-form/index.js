@@ -5,14 +5,12 @@ import './message-form.css';
 import React, { Component } from 'react';
 
 class MessageForm extends Component {
-  onKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      const text = e.target.value.trim();
-      const date = (new Date()).toLocaleTimeString();
-      const id = Date.now();
-      e.target.value = "";
-      this.props.onSubmit({ id: id, text: text, date: date });
-      e.preventDefault();
+  onKeyPress = (ev) => {
+    if (ev.key === 'Enter') {
+      const { message } = this.refs;
+      this.props.onSubmit({ text: message.value.trim() });
+      message.value = "";
+      ev.preventDefault();
     }
   }
 
@@ -21,6 +19,7 @@ class MessageForm extends Component {
       <div className="message-form">
         <textarea
           onKeyPress={ this.onKeyPress }
+          ref="message"
           className="message-form__input"
         />
       </div>

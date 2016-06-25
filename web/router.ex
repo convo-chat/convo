@@ -18,6 +18,7 @@ defmodule Convo.Router do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
     get "/channels", ChannelController, :index
+    get "/messages", MessageController, :index
     post "/login", UserController, :login
   end
 

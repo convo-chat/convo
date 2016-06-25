@@ -6,11 +6,11 @@ import React, { Component } from 'react';
 
 class Message extends Component {
   render() {
-    const { user, date, text } = this.props.message;
+    const { user, ts, text } = this.props.message;
     return (
       <div className="message">
         <span className="message__user">{ user.username }</span>
-        <time className="message__ts">{ date }</time>
+        <time className="message__ts">{ ts }</time>
         <p className="message__text">{ text }</p>
       </div>
     );

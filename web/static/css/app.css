@@ -8,6 +8,9 @@ html, body, #app {
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  font-smoothing: antialiased;
 }
 
 a, a:visited {
@@ -23,9 +26,9 @@ ul {
 input, textarea, select {
   width: 100%;
   border: 1px solid rgba(0,0,0, .25);
+  padding: 10px;
+  border: 1px solid #C5C5C5;
   width: 100%;
-  height: 34px;
-  padding: 6px 12px;
   background-color: #fff;
   background-image: none;
   border: 1px solid #ccc;
@@ -47,6 +50,31 @@ input:focus, textarea:focus, select:focus {
   position: relative;
 }
 
+.button {
+  background-color: #9e9ea6;
+  padding: 10px 15px;
+  color: #fff;
+  font-weight: 900;
+  text-decoration: none;
+  cursor: pointer;
+  text-shadow: 0 1px 1px rgba(0,0,0,.1);
+  border: none;
+  border-radius: .25rem;
+  box-shadow: none;
+  display: inline-block;
+  vertical-align: bottom;
+  text-align: center;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.button--primary {
+  background-color: #428bca;
+}
+
+.form__group {
+  margin-bottom: 15px;
+}
 
 .grid {
   display: flex;
@@ -56,11 +84,11 @@ input:focus, textarea:focus, select:focus {
 .sidebar {
   flex: 1;
   padding: 15px;
-  border-right: 1px solid #eee;
+  border-right: 1px solid #e8e8e8;
 }
 .user {
   height: 60px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #e8e8e8;
   margin: -15px -15px 15px -15px;
   padding: 15px;
 }
@@ -73,7 +101,7 @@ input:focus, textarea:focus, select:focus {
 .content__header {
   padding: 15px;
   height: 60px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .content__header h3 {

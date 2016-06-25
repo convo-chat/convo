@@ -3,11 +3,11 @@ import AppDispatcher from  'js/dispatcher';
 import Auth from 'js/services/auth';
 
 const UserActions = {
-  login: (user) => {
+  login: (email, password) => {
     fetch("http://localhost:4000/api/login", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({...user})
+      body: {email: email, password: password},
     })
     .then((resp) => {
       return resp.json();

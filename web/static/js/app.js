@@ -31,6 +31,7 @@ class App extends Component {
   }
 
   componentWillMount() {
+    socket.connect(Auth.getToken());
     ChannelActions.fetchChannels();
     ChannelActions.join();
   }

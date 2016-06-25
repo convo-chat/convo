@@ -1,5 +1,7 @@
 defmodule Convo.UserSocket do
   use Phoenix.Socket
+  alias Convo.Repo
+  alias Convo.User
 
   ## Channels
   channel "channel:*", Convo.RoomChannel
@@ -20,9 +22,16 @@ defmodule Convo.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, assign(socket, :user_id, 1)}
+  def connect(%{"token" => token}, socket) do
+    case Phoenix.Token.verify(socket, "user", token, max_age: 1209600) do
+      {:ok, user_id} ->
+        socket = assign(socket, :user, Repo.get!(User, user_id))
+        {:ok, socket}
+      {:error, _} ->
+        :error
+    end
   end
+  def connect(_params, _socket), do: :error
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
@@ -35,5 +44,4 @@ defmodule Convo.UserSocket do
   #
   # Returning `nil` makes this socket anonymous.
   def id(socket), do: "user:#{socket.assigns[:user_id]}"
-  def id(_socket), do: nil
 end

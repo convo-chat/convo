@@ -1,12 +1,12 @@
-import {Socket} from "phoenix/web/static/js/phoenix"
+import { Socket } from "phoenix/web/static/js/phoenix"
 
 let socket;
 
 const SocketActions = {
-  connect: () => {
+  connect: (token) => {
     if (!socket) {
       socket = new Socket("/socket", {
-          params: { token: window.userToken }
+          params: { token }
       });
       socket.connect();
     }
@@ -25,7 +25,5 @@ const SocketActions = {
     return channel;
   },
 };
-
-SocketActions.connect();
 
 export default SocketActions;

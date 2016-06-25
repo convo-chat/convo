@@ -1,8 +1,10 @@
 defmodule Convo.PageController do
   use Convo.Web, :controller
+  alias Convo.Repo
+  alias Convo.Message
 
   def index(conn, _params) do
-    messages = Convo.MessageStore.get("rooms:general")
-    render conn, "index.html", messages: messages
+    messages = Repo.all(Message)
+    render(conn, "index.html", messages: messages)
   end
 end
