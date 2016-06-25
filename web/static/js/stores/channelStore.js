@@ -13,7 +13,7 @@ class ChannelStore extends ReduceStore {
     return this.getState().channels;
   }
 
-  currentChannel() {
+  getCurrentChannel() {
     return this.getState().current;
   }
 

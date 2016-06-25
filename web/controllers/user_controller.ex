@@ -84,6 +84,6 @@ defmodule Convo.UserController do
   end
 
   def login(conn, _) do
-    conn |> render(UserView, :error, message: "Please enter your credentials!")
+    conn |> render(:error, message: "Invalid username or password!")
   end
 end

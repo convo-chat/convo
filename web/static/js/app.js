@@ -11,7 +11,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 // Services
 import Auth from './services/auth';
-import socket from './socket';
+import Socket from './socket';
 // Components
 import Login from 'js/components/login';
 import Channel from 'js/components/channel';
@@ -20,6 +20,7 @@ import UserList from 'js/components/user-list';
 // Actions
 import UserActions from 'js/actions/UserActions';
 import ChannelActions from 'js/actions/ChannelActions';
+import MessageActions from 'js/actions/MessageActions';
 // Stores
 import userStore from 'js/stores/userStore';
 import channelStore from 'js/stores/channelStore';
@@ -31,9 +32,11 @@ class App extends Component {
   }
 
   componentWillMount() {
-    socket.connect(Auth.getToken());
+    Socket.connect(Auth.getToken());
     ChannelActions.fetchChannels();
     ChannelActions.join();
+    UserActions.fetchUsers();
+    MessageActions.fetchMessages();
   }
 
   componentDidMount() {
@@ -41,18 +44,24 @@ class App extends Component {
     channelStore.addListener(this.onChange);
   }
 
+  componentWillUnmount() {
+    userStore.removeListener(this.onChange); 
+    channelStore.removeListener(this.onChange); 
+  }
+
   onChange = () => {
     this.setState(this.getStateFromStore());
+    this.forceUpdate();
   }
 
   onClickUser = (user) => {}
 
   getStateFromStore() {
     return {
-      currentChannel: channelStore.currentChannel(), 
       channels: channelStore.getChannels(), 
-      currentUser: userStore.getCurrentUser(),
+      currentChannel: channelStore.getCurrentChannel(), 
       users: userStore.getUsers(),
+      currentUser: userStore.getCurrentUser(),
       loggedIn: userStore.getLoggedIn(),
     };
   }

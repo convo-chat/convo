@@ -7,23 +7,22 @@ const UserActions = {
     fetch("http://localhost:4000/api/login", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: {email: email, password: password},
+      body: JSON.stringify({email: email, password: password}),
     })
-    .then((resp) => {
-      return resp.json();
-    })
+    .then(resp => resp.json())
     .then((json) => {
-        UserActions.storeToken(json.token);
-        UserActions.addUser(json.user);
-        browserHistory.replace('/');
+      UserActions.storeToken(json.token);
+      UserActions.addUser(json.user);
+      browserHistory.replace('/');
     })
-    .catch((err, msg) => {
-      console.log(err);
-    });
+    .catch(err => console.log(err));
 
     AppDispatcher.dispatch({
       type: 'USER_LOGIN',
-      ...user
+      payload: {
+        email,
+        password,
+      },
     });
   },
 
@@ -31,7 +30,18 @@ const UserActions = {
     Auth.addUser(user);
     AppDispatcher.dispatch({
       type: 'USER_ADD',
-      user,
+      payload: {
+        user,
+      }
+    });
+  },
+
+  addUsers: (users) => {
+    AppDispatcher.dispatch({
+      type: 'USERS_ADD',
+      payload: {
+        users,
+      }
     });
   },
 
@@ -39,8 +49,10 @@ const UserActions = {
     Auth.login(token);
     AppDispatcher.dispatch({
       type: 'USER_ADD_TOKEN',
-      loggedIn: true,
-      token,
+      payload: {
+        loggedIn: true,
+        token,
+      },
     });
   },
 
@@ -49,17 +61,20 @@ const UserActions = {
       method: "GET",
       headers: {"Content-Type": "application/json"},
     })
-    .then((resp) => {
-      return resp.json();
+    .then(resp => resp.json())
+    .then(json => UserActions.addUser(json.user))
+    .catch(err => console.log(err));
+  },
+
+  fetchUsers: () => {
+    fetch("http://localhost:4000/api/users", {
+      method: "GET",
+      headers: {"Content-Type": "application/json"},
     })
-    .then((json) => {
-        UserActions.addUser(json.user);
-    })
-    .catch((err, msg) => {
-      console.log(err);
-    });
-  }
+    .then(resp => resp.json())
+    .then(json => UserActions.addUsers(json.data))
+    .catch(err => console.log(err));
+  },
 };
 
 export default UserActions;
-

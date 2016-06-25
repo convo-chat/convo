@@ -24,19 +24,20 @@ class UserStore extends ReduceStore {
   }
 
   reduce(state, action) {
-    switch (action.type) {
+    const { type, payload } = action;
+    switch (type) {
       case 'USER_LOGIN':
         return state;
       case 'USER_ADD_TOKEN':
         return {
           ...state, 
-          token: action.token, 
-          loggedIn: action.loggedIn
+          token: payload.token, 
+          loggedIn: payload.loggedIn
         };
       case 'USER_ADD': 
         return {
           ...state,
-          user: action.user,
+          user: payload.user,
         };
       default:
         return state;

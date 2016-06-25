@@ -12,7 +12,6 @@ import messageStore from 'js/stores/messageStore';
 import channelStore from 'js/stores/channelStore';
 import userStore from 'js/stores/userStore';
 
-
 class Channel extends Component {
   constructor() {
     super();
@@ -28,7 +27,6 @@ class Channel extends Component {
   componentWillReceiveProps(nextProps) {
     const { id } = nextProps.params;
     ChannelActions.join(id);
-    MessageActions.fetchMessages(id);
   }
 
   onChange = () => {
@@ -42,8 +40,7 @@ class Channel extends Component {
   }
 
   getStateFromStore() {
-    const currentChannel = channelStore.currentChannel();
-
+    const currentChannel = channelStore.getCurrentChannel();
     return {
       currentChannel: currentChannel,
       messages: messageStore.getMessages(currentChannel),

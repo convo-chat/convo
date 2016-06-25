@@ -19,8 +19,8 @@ const MessageActions = {
       }
     });
   },
-  fetchMessages: (topic) => {
-  	fetch(`/api/messages?topic=${topic}`, {
+  fetchMessages: () => {
+  	fetch(`/api/messages`, {
   		method: 'GET',
   		headers: {
       	'Accept': 'application/json',
