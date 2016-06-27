@@ -11,15 +11,22 @@ defmodule Convo.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug Convo.Auth
+  end
+
+  pipeline :auth do
+    plug Convo.Auth 
   end
 
   # Other scopes may use custom stacks.
   scope "/api", Convo do
-    pipe_through :api
+    pipe_through [:api, :auth]
     resources "/users", UserController, except: [:new, :edit]
     get "/channels", ChannelController, :index
     get "/messages", MessageController, :index
+  end
+
+  scope "/api", Convo do
+    pipe_through :api
     post "/login", UserController, :login
   end
 
