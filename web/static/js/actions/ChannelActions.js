@@ -1,12 +1,13 @@
 import AppDispatcher from  'js/dispatcher';
-import socket from 'js/socket';
+import Socket from 'js/socket';
 import MessageActions from 'js/actions/MessageActions';
 import channelStore from 'js/stores/channelStore';
 import config from 'js/config';
+import Auth from 'js/services/auth';
 
 const ChannelActions = {
   join: (topic = 'general') => {
-    const channel = socket.channel(`channel:${topic}`);
+    const channel = Socket.channel(`channel:${topic}`);
     channel.off("message_new");
     channel.on("message_new", payload => {
       MessageActions.new(topic, payload);
@@ -21,9 +22,9 @@ const ChannelActions = {
   },
 
   private: (user) => {
-    const channel = socket.channel(`private:${user.id}`);
+    const channel = Socket.channel(`private:${user.id}`);
     channel.push("handshake", {user_id: user.id})
-      .receive("ok", resp => socket.channel(`private:${resp.id}`));
+      .receive("ok", resp => Socket.channel(`private:${resp.id}`));
   },
 
   leave: () => {
@@ -31,7 +32,7 @@ const ChannelActions = {
   },
 
   messageNew: (topic, message) => {
-    socket.channel(`channel:${topic}`)
+    Socket.channel(`channel:${topic}`)
       .push('message_new', message);
   },
 
@@ -49,7 +50,8 @@ const ChannelActions = {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${Auth.getToken()}`
       },
     })
     .then(resp => resp.json())

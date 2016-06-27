@@ -11,6 +11,7 @@ defmodule Convo.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Convo.Auth
   end
 
   # Other scopes may use custom stacks.

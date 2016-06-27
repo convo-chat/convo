@@ -25,6 +25,7 @@ import MessageActions from 'js/actions/MessageActions';
 import userStore from 'js/stores/userStore';
 import channelStore from 'js/stores/channelStore';
 
+
 class App extends Component {
   constructor() {
     super();
@@ -35,7 +36,7 @@ class App extends Component {
     Socket.connect(Auth.getToken());
     ChannelActions.fetchChannels();
     ChannelActions.join();
-    UserActions.fetchUsers();
+    // UserActions.fetchUsers();
     MessageActions.fetchMessages();
   }
 

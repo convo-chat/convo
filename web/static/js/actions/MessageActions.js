@@ -1,5 +1,6 @@
 import AppDispatcher from  'js/dispatcher';
-import socket from 'js/socket';
+import Socket from 'js/socket';
+import Auth from 'js/services/auth';
 
 const MessageActions = {
   new: (topic, message) => {
@@ -11,25 +12,28 @@ const MessageActions = {
       }
     });
   },
+
   addMessages: (messages) => {
-  	AppDispatcher.dispatch({
+    AppDispatcher.dispatch({
       type: 'MESSAGES_ADD',
       payload: {
         messages,
       }
     });
   },
+
   fetchMessages: () => {
-  	fetch(`/api/messages`, {
-  		method: 'GET',
-  		headers: {
-      	'Accept': 'application/json',
-      	'Content-Type': 'application/json'
-    	}
-  	})
-  	.then(resp => resp.json())
-  	.then(json => MessageActions.addMessages(json.data))
-  	.catch(err => console.log(err));
+    fetch(`/api/messages`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${Auth.getToken()}`
+      }
+    })
+    .then(resp => resp.json())
+    .then(json => MessageActions.addMessages(json.data))
+    .catch(err => console.log(err));
   },
 };
 

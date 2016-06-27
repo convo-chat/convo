@@ -2,6 +2,7 @@ defmodule Convo.RoomChannel do
   use Phoenix.Channel
   alias Convo.Repo
   alias Convo.Message
+  alias Convo.MessageView
 
   def join("channel:general", payload, socket) do
     send(self, {:after_join, payload})
@@ -51,6 +52,6 @@ defmodule Convo.RoomChannel do
   end
 
   defp build_response(message, user) do
-    messages = Convo.MessageView.render("message.json", message: message, user: user)
+    MessageView.render("message.json", message: message, user: user)
   end
 end

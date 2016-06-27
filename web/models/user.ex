@@ -16,6 +16,8 @@ defmodule Convo.User do
     field :last_login_at, Ecto.DateTime
     field :deleted_at, Ecto.DateTime
 
+    has_many :message, Convo.Message
+
     timestamps
   end
 
